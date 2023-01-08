@@ -164,12 +164,67 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_action_3_triggered()
 {
-    QString filename = QFileDialog::getSaveFileName();
-    QFile f( filename+".txt" );
+    QString filename = QFileDialog::getSaveFileName(NULL,NULL,NULL,"*.txt");
+    QFile f( filename+"txt");
 
     f.open( QIODevice::WriteOnly );
     QTextStream out(&f);
+    out<<"CFG\n";
+    out<<al_n.join(" ");
+    out<<"\n";
+    out<<FixedChain.join("");
+    out<<"\n";
+    out<<al_t.join(" ");
+    out<<"\n";
     out<<rules.join("\n");
     f.close();
+}
+
+
+void MainWindow::on_action_4_triggered()
+{
+    QString filename = QFileDialog::getOpenFileName(NULL,NULL,NULL,"*.txt");
+    QFile f( filename);
+    bool check=false;
+    int line=0;
+     if( f.open( QIODevice::ReadOnly )){
+          QTextStream out(&f);
+          while(!out.atEnd()){
+              QString temp=out.readLine();
+              if(!check){
+              if(temp=="CFG"){
+                  check=true;
+
+              }
+              else{
+                  QMessageBox msg;
+                  msg.setText("WRONG FORMAT!");
+                  msg.exec();
+                  return;
+              }
+              }
+              if(line<3){
+                  line+=3;
+                  temp=out.readLine();
+                  al_n=temp.split(" ");
+                  temp=out.readLine();
+                  FixedChain=temp.split("");
+                  temp=out.readLine();
+                   al_t=temp.split(" ");
+
+
+              }
+              else{
+                  rules.append(temp);
+              }
+
+
+          }
+
+          updateList(ui->rulesList,&rules);
+           updateList(ui->termList,&al_t);
+           updateList(ui->nonTermList,&al_n);
+     }
+
 }
 

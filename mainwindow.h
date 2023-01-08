@@ -39,6 +39,8 @@ private slots:
 
     void on_action_3_triggered();
 
+    void on_action_4_triggered();
+
 private:
     QStringList al_t;
     QStringList al_n;
