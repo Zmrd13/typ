@@ -99,7 +99,7 @@ void MainWindow::on_pushButton_7_clicked()
         FixedChain.removeAll("");
 
     RuleGen();
-
+    qDebug()<<"RuleGen out";
     qDebug()<<rules;
     updateList(ui->nonTermList,&al_n);
     updateList(ui->rulesList,&rules);

@@ -117,6 +117,7 @@ private:
         result->clear();
         QString chain;
         QString logChain;
+
         int count=0;
         qDebug()<<FixedChain.size();
         count+=FixedChain.size();
@@ -130,7 +131,9 @@ private:
                         logChain.append(j);
                     }
                 }
+
                 logChain=(chain+logChain.at(logChain.size()-1));
+
                 if(R_mode){
                     std:: reverse(logChain.begin(),logChain.end());
                 }
@@ -168,6 +171,8 @@ private:
 
         al_n.clear();
         al_n.append(target);
+        if(R_mode)
+             std:: reverse(FixedChain.begin(),FixedChain.end());
         if(mod==0){
             return {};
         }
@@ -188,6 +193,7 @@ private:
         QStringList tempRule;
         QString tempString;
         tempString=target+"->";
+        if(FixedChain.size()*size!=1){
         if(!R_mode){
             tempString+=FixedChain.at(0)+al_n.at(1)+"|_`";
         }
@@ -195,7 +201,18 @@ private:
             tempString+=al_n.at(1)+FixedChain.at(0)+"|`_";
         }
         tempRule.append(tempString);
+}
+        else{
 
+            if(!R_mode){
+                tempString+=FixedChain.at(0)+al_n.at(0)+"|_`";
+            }
+            else{
+                tempString+=al_n.at(0)+FixedChain.at(0)+"|`_";
+            }
+            tempRule.append(tempString);
+
+        }
 
 
         for(int i=1;i<al_n.size();i++){
@@ -217,10 +234,12 @@ private:
             }}
 
 
+        qDebug()<<"End";
 
         rules.append(tempRule);
-        qDebug()<<rules;
-
+       // qDebug()<<rules;
+        qDebug()<<"End";
+return {};
     }
 
 };
