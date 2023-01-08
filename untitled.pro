@@ -13,7 +13,6 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    ChainGen.h \
     mainwindow.h
 
 FORMS += \
