@@ -183,7 +183,7 @@ void MainWindow::on_action_3_triggered()
 
 void MainWindow::on_action_4_triggered()
 {
-    QString filename = QFileDialog::getOpenFileName(NULL,NULL,NULL,"*.txt");
+    QString filename = QFileDialog::getOpenFileName();
     QFile f( filename);
     bool check=false;
     int line=0;
@@ -209,6 +209,7 @@ void MainWindow::on_action_4_triggered()
                   al_n=temp.split(" ");
                   temp=out.readLine();
                   FixedChain=temp.split("");
+                  ui->lineEdit_4->setText(FixedChain.join(""));
                   temp=out.readLine();
                    al_t=temp.split(" ");
 
@@ -216,6 +217,11 @@ void MainWindow::on_action_4_triggered()
               }
               else{
                   rules.append(temp);
+                  if(temp.at(3).isUpper()){
+                      R_mode=true;
+                      ui->radioButton->setChecked(true);
+
+                  }
               }
 
 

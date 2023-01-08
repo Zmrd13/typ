@@ -144,7 +144,11 @@ private:
             }
             // qDebug()<<Chain;
             if(chain.size()<=size){
-                result->append(chain);
+
+                if(!R_mode)
+                    result->append(logChain.remove(logChain.size()-2,1));
+                else
+                     result->append(logChain.remove(0,1));
                 log.append("`\n");
             }
         }
