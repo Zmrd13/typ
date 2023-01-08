@@ -135,3 +135,38 @@ ui->lineEdit_4->setText(FixedChain.join(""));
 }
 
 
+
+void MainWindow::on_action_triggered()
+{
+    QMessageBox msg;
+    QString temp="ИП-913 Жиляков Е.А \n Вариант 5";
+    temp+="";
+    msg.setWindowTitle("Автор");
+    msg.setText(temp);
+    msg.exec();
+
+}
+
+
+void MainWindow::on_action_2_triggered()
+{
+    QMessageBox msg;
+    QString temp="Написать программу, которая по предложенному описанию языка построит регулярную грамматику (ЛЛ или ПЛ – по заказу пользователя),задающую этот язык, и позволит сгенерировать с её помощью все цепочки языка в заданном диапазоне длин. Предусмотреть возможностьпоэтапного отображения на экране процесса генерации цепочек. Варианты задания языка:\nАлфавит, обязательная фиксированная подцепочка и кратность длины всех цепочек языка";
+    temp+="";
+    msg.setWindowTitle("Тема");
+    msg.setText(temp);
+    msg.exec();
+}
+
+
+void MainWindow::on_action_3_triggered()
+{
+   QString filename = QFileDialog::getSaveFileName();
+    QFile f( filename+".txt" );
+
+    f.open( QIODevice::WriteOnly );
+    QTextStream out(&f);
+    out<<rules.join("\n");
+    f.close();
+}
+

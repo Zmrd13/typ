@@ -1,11 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "qstringlistmodel.h"
-#include "ChainGen.h"
 #include <QMainWindow>
 #include <QListView>
+#include <QMessageBox>
 #include <QColumnView>
 #include <QDebug>
+#include <QFileDialog>
+#include <QFile>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -30,6 +32,12 @@ private slots:
     void on_pushButton_8_clicked();
 
     void on_lineEdit_4_textChanged(const QString &arg1);
+
+    void on_action_triggered();
+
+    void on_action_2_triggered();
+
+    void on_action_3_triggered();
 
 private:
     void listRemove(QAbstractItemView * target,QStringList *lst,QString str){
