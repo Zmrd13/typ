@@ -40,6 +40,16 @@ private slots:
     void on_action_3_triggered();
 
 private:
+    QStringList al_t;
+    QStringList al_n;
+    QString target;
+    QStringList rules;
+    QStringList result;
+    QStringList log;
+    Ui::MainWindow *ui;
+    QStringList FixedChain;
+    qint8 mod;
+    bool R_mode=false;
     void listRemove(QAbstractItemView * target,QStringList *lst,QString str){
         if(str==" "){
             str="_";
@@ -81,15 +91,7 @@ private:
          logError("Done!");
           updateList(target,*lst);
     }
-    QStringList al_t;
-    QStringList al_n;
-    QString target;
-    QStringList rules;
-    QStringList result;
-    QStringList log;
-    Ui::MainWindow *ui;
-    QStringList FixedChain;
-    qint8 mod;
+
     void logError(QString str,QListView * target=nullptr){
 
         QString temp=QString(QString::number(log.size()+1)+"-"+str);
@@ -128,17 +130,21 @@ private:
                   logChain.append(j);
               }
           }
+logChain=(chain+logChain.at(logChain.size()-1));
+if(R_mode){
+   std:: reverse(logChain.begin(),logChain.end());
+}
+log.append(logChain);
            logChain.append(" ");
       }
      // qDebug()<<Chain;
       if(chain.size()<=size){
       result->append(chain);
-      log.append(logChain);
+      log.append("`\n");
       }
       }
        qDebug()<<count;
      // qDebug()<<Chain;
-
        result->removeDuplicates();
          return "";
     }
@@ -159,6 +165,7 @@ private:
        return {tempLst};
     }
     QStringList RuleGen(){
+
         al_n.clear();
         al_n.append(target);
         if(mod==0){
@@ -180,15 +187,32 @@ private:
 
         QStringList tempRule;
         QString tempString;
-        tempString=target+"->"+FixedChain.at(0)+al_n.at(1)+"|_`";
+        tempString=target+"->";
+        if(!R_mode){
+        tempString+=FixedChain.at(0)+al_n.at(1)+"|_`";
+        }
+        else{
+        tempString+=al_n.at(1)+FixedChain.at(0)+"|`_";
+        }
         tempRule.append(tempString);
+
+
+
         for(int i=1;i<al_n.size();i++){
+
             if((i+1)==al_n.size()){
-                tempString=al_n.at(i)+"->"+FixedChain.at(i%FixedChain.size())+target;
+                if(!R_mode)
+                    tempString=al_n.at(i)+"->"+FixedChain.at(i%FixedChain.size())+target;
+                else
+                    tempString=al_n.at(i)+"->"+target+FixedChain.at(i%FixedChain.size());
                 tempRule.append(tempString);
             }
             else{
-            tempString=al_n.at(i)+"->"+FixedChain.at(i%FixedChain.size())+al_n.at(i+1);
+                if(!R_mode)
+                     tempString=al_n.at(i)+"->"+FixedChain.at(i%FixedChain.size())+al_n.at(i+1);
+                else
+                    tempString=al_n.at(i)+"->"+al_n.at(i+1)+FixedChain.at(i%FixedChain.size());
+
             tempRule.append(tempString);
         }}
 
@@ -196,8 +220,8 @@ private:
 
       rules.append(tempRule);
 qDebug()<<rules;
+
     }
 
 };
-
 #endif // MAINWINDOW_H

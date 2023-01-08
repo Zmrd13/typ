@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->logList->setAutoScroll(true);
-
     al_n.append("S");
     updateList(ui->nonTermList,al_n);
     al_t.append({"w","r","q"});
@@ -89,14 +88,18 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_7_clicked()
 
-{   rules.clear();
+{
+    R_mode=ui->radioButton->isChecked();
+    qDebug()<<R_mode;
+    rules.clear();
     mod=ui->spinModulus->value();
     if(FixedChain.isEmpty()){
     return;}
     if(FixedChain.contains(""))
-      FixedChain.removeAll("");
+   FixedChain.removeAll("");
 
    RuleGen();
+
    qDebug()<<rules;
   updateList(ui->nonTermList,&al_n);
   updateList(ui->rulesList,&rules);

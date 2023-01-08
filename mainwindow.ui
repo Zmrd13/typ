@@ -176,6 +176,13 @@
       </property>
      </widget>
     </item>
+    <item row="4" column="3">
+     <widget class="QRadioButton" name="radioButton">
+      <property name="text">
+       <string>Right-hand</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
