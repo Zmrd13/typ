@@ -239,6 +239,8 @@ private:
         rules.append(tempRule);
        // qDebug()<<rules;
         qDebug()<<"End";
+        if(R_mode)
+             std:: reverse(FixedChain.begin(),FixedChain.end());
 return {};
     }
 
